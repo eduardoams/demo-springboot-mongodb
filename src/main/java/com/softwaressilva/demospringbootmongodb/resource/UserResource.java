@@ -1,6 +1,8 @@
 package com.softwaressilva.demospringbootmongodb.resource;
 
+import com.softwaressilva.demospringbootmongodb.domain.Post;
 import com.softwaressilva.demospringbootmongodb.domain.User;
+import com.softwaressilva.demospringbootmongodb.dto.PostDTO;
 import com.softwaressilva.demospringbootmongodb.dto.UserDTO;
 import com.softwaressilva.demospringbootmongodb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +54,12 @@ public class UserResource {
         obj.setId(id);
         obj = userService.update(obj);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<PostDTO>> findPosts(@PathVariable String id) {
+        User obj = userService.findById(id);
+        List<PostDTO> listDto = obj.getPosts().stream().map(x -> new PostDTO(x)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 }

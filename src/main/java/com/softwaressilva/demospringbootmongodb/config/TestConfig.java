@@ -2,7 +2,7 @@ package com.softwaressilva.demospringbootmongodb.config;
 
 import com.softwaressilva.demospringbootmongodb.domain.Post;
 import com.softwaressilva.demospringbootmongodb.domain.User;
-import com.softwaressilva.demospringbootmongodb.dto.AuthorDto;
+import com.softwaressilva.demospringbootmongodb.dto.AuthorDTO;
 import com.softwaressilva.demospringbootmongodb.repository.PostRepository;
 import com.softwaressilva.demospringbootmongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +37,9 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(u1, u2, u3));
 
-        Post p1 = new Post(null, sdf.parse("01/09/1910"), "Vai Corinthians!", "Eternamente dentro de nossos corações", new AuthorDto(u1));
-        Post p2 = new Post(null, sdf.parse("01/06/2023"), "Bom dia", "Vamos com tudo, Fiel", new AuthorDto(u2));
-        Post p3 = new Post(null, sdf.parse("15/08/2023"), "Neo Química Arena", "A Arena mais bonita do Brasil", new AuthorDto(u1));
+        Post p1 = new Post(null, sdf.parse("01/09/1910"), "Vai Corinthians!", "Eternamente dentro de nossos corações", new AuthorDTO(u1));
+        Post p2 = new Post(null, sdf.parse("01/06/2023"), "Bom dia", "Vamos com tudo, Fiel", new AuthorDTO(u2));
+        Post p3 = new Post(null, sdf.parse("15/08/2023"), "Neo Química Arena", "A Arena mais bonita do Brasil", new AuthorDTO(u1));
 
         //Salvando Post, aninhando Author à coleção deste objeto
         postRepository.saveAll(Arrays.asList(p1, p2, p3));
