@@ -2,6 +2,7 @@ package com.softwaressilva.demospringbootmongodb.config;
 
 import com.softwaressilva.demospringbootmongodb.domain.Post;
 import com.softwaressilva.demospringbootmongodb.domain.User;
+import com.softwaressilva.demospringbootmongodb.dto.AuthorDto;
 import com.softwaressilva.demospringbootmongodb.repository.PostRepository;
 import com.softwaressilva.demospringbootmongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(u1, u2, u3));
 
-        Post p1 = new Post(null, sdf.parse("01/09/1910"), "Vai Corinthians!", "Eternamente dentro de nossos corações", u1);
-        Post p2 = new Post(null, sdf.parse("01/06/2023"), "Bom dia", "Vamos com tudo, Fiel", u2);
+        Post p1 = new Post(null, sdf.parse("01/09/1910"), "Vai Corinthians!", "Eternamente dentro de nossos corações", new AuthorDto(u1));
+        Post p2 = new Post(null, sdf.parse("01/06/2023"), "Bom dia", "Vamos com tudo, Fiel", new AuthorDto(u2));
 
         postRepository.saveAll(Arrays.asList(p1, p2));
     }
