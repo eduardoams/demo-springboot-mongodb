@@ -1,10 +1,8 @@
 package com.softwaressilva.demospringbootmongodb.resource;
 
 import com.softwaressilva.demospringbootmongodb.domain.Post;
-import com.softwaressilva.demospringbootmongodb.domain.User;
-import com.softwaressilva.demospringbootmongodb.dto.CommentDTO;
 import com.softwaressilva.demospringbootmongodb.dto.PostDTO;
-import com.softwaressilva.demospringbootmongodb.dto.UserDTO;
+import com.softwaressilva.demospringbootmongodb.resource.util.URL;
 import com.softwaressilva.demospringbootmongodb.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +31,13 @@ public class PostResource {
     public ResponseEntity<PostDTO> findById(@PathVariable String id) {
         Post obj = postService.findById(id);
         return ResponseEntity.ok().body(new PostDTO(obj));
+    }
+
+    @GetMapping(value = "/title-search")
+    public ResponseEntity<List<PostDTO>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
+        List<Post> list = postService.findByTitle(URL.decodeParam(text));
+        List<PostDTO> listDto = list.stream().map(x -> new PostDTO(x)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 
     @PostMapping
