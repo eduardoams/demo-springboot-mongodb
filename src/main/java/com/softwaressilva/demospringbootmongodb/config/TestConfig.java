@@ -45,7 +45,7 @@ public class TestConfig implements CommandLineRunner {
         p1.getComments().add(c1);
         p3.getComments().addAll(Arrays.asList(c2, c3));
 
-        //Salvando Post, aninhando Author e CommentDTO à coleção deste objeto
+        //Salvando Post, aninhando Author e Comments à coleção deste objeto
         postRepository.saveAll(Arrays.asList(p1, p2, p3));
 
         //Referenciando Post à coleção do objeto User

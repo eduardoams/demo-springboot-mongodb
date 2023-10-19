@@ -15,6 +15,7 @@ public class PostDTO implements Serializable {
     private Instant date;
     private String title;
     private String body;
+    private AuthorDTO author;
 
     private List<CommentDTO> comments = new ArrayList<>();
     
@@ -27,6 +28,7 @@ public class PostDTO implements Serializable {
         title = obj.getTitle();
         body = obj.getBody();
         comments = obj.getComments();
+        author = obj.getAuthor();
     }
 
     public String getId() {
@@ -59,6 +61,14 @@ public class PostDTO implements Serializable {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public AuthorDTO getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(AuthorDTO author) {
+        this.author = author;
     }
 
     public List<CommentDTO> getComments() {

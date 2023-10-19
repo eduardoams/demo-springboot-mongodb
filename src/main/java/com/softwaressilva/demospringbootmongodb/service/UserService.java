@@ -22,7 +22,7 @@ public class UserService {
 
     public User findById(String id) {
         Optional<User> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto User não encontrado"));
     }
 
     public User insert(User obj) {
