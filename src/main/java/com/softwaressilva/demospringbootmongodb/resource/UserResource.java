@@ -1,6 +1,5 @@
 package com.softwaressilva.demospringbootmongodb.resource;
 
-import com.softwaressilva.demospringbootmongodb.domain.Post;
 import com.softwaressilva.demospringbootmongodb.domain.User;
 import com.softwaressilva.demospringbootmongodb.dto.PostDTO;
 import com.softwaressilva.demospringbootmongodb.dto.UserDTO;
