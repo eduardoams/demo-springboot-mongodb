@@ -3,15 +3,15 @@ package com.softwaressilva.demospringbootmongodb.config;
 import com.softwaressilva.demospringbootmongodb.domain.Post;
 import com.softwaressilva.demospringbootmongodb.domain.User;
 import com.softwaressilva.demospringbootmongodb.dto.AuthorDTO;
+import com.softwaressilva.demospringbootmongodb.dto.CommentDTO;
 import com.softwaressilva.demospringbootmongodb.repository.PostRepository;
 import com.softwaressilva.demospringbootmongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
-import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Arrays;
-import java.util.TimeZone;
 
 @Configuration
 public class TestConfig implements CommandLineRunner {
@@ -25,9 +25,6 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-
         userRepository.deleteAll();
         postRepository.deleteAll();
 
@@ -37,11 +34,18 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(u1, u2, u3));
 
-        Post p1 = new Post(null, sdf.parse("01/09/1910"), "Vai Corinthians!", "Eternamente dentro de nossos corações", new AuthorDTO(u1));
-        Post p2 = new Post(null, sdf.parse("01/06/2023"), "Bom dia", "Vamos com tudo, Fiel", new AuthorDTO(u2));
-        Post p3 = new Post(null, sdf.parse("15/08/2023"), "Neo Química Arena", "A Arena mais bonita do Brasil", new AuthorDTO(u1));
+        Post p1 = new Post(null, Instant.now(), "Vai Corinthians!", "Eternamente dentro de nossos corações", new AuthorDTO(u1));
+        Post p2 = new Post(null, Instant.now(), "Bom dia", "Vamos com tudo, Fiel", new AuthorDTO(u2));
+        Post p3 = new Post(null, Instant.now(), "Neo Química Arena", "A Arena mais bonita do Brasil", new AuthorDTO(u1));
 
-        //Salvando Post, aninhando Author à coleção deste objeto
+        CommentDTO c1 = new CommentDTO("O melhor do Brasil!", Instant.now(), new AuthorDTO(u2));
+        CommentDTO c2 = new CommentDTO("Concordo, mas existe outros estádios no Brasil que também são bonitos", Instant.now(), new AuthorDTO(u2));
+        CommentDTO c3 = new CommentDTO("Não tem como discordar...", Instant.now(), new AuthorDTO(u3));
+
+        p1.getComments().add(c1);
+        p3.getComments().addAll(Arrays.asList(c2, c3));
+
+        //Salvando Post, aninhando Author e CommentDTO à coleção deste objeto
         postRepository.saveAll(Arrays.asList(p1, p2, p3));
 
         //Referenciando Post à coleção do objeto User
