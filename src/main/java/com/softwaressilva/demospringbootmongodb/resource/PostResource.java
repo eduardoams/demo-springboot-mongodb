@@ -40,6 +40,13 @@ public class PostResource {
         return ResponseEntity.ok().body(listDto);
     }
 
+    @GetMapping(value = "/body-search")
+    public ResponseEntity<List<PostDTO>> bodySearch(@RequestParam(value = "text", defaultValue = "") String text) {
+        List<Post> list = postService.bodySearch(URL.decodeParam(text));
+        List<PostDTO> listDto = list.stream().map(x -> new PostDTO(x)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
+    }
+
     @PostMapping
     public ResponseEntity<Post> insert(@RequestBody PostDTO objDto) {
         Post obj = postService.fromDTO(objDto);

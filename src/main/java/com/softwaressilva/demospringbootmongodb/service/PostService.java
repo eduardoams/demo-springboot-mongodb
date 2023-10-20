@@ -1,7 +1,6 @@
 package com.softwaressilva.demospringbootmongodb.service;
 
 import com.softwaressilva.demospringbootmongodb.domain.Post;
-import com.softwaressilva.demospringbootmongodb.domain.User;
 import com.softwaressilva.demospringbootmongodb.dto.PostDTO;
 import com.softwaressilva.demospringbootmongodb.repository.PostRepository;
 import com.softwaressilva.demospringbootmongodb.service.exception.ObjectNotFoundException;
@@ -31,6 +30,10 @@ public class PostService {
 
     public List<Post> findByTitle(String text) {
         return repository.findByTitleContainingIgnoreCase(text);
+    }
+
+    public List<Post> bodySearch(String text) {
+        return repository.bodySearch(text);
     }
 
     public Post insert(Post obj) {
