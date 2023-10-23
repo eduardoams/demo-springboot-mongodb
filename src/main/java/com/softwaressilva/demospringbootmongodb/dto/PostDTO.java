@@ -3,8 +3,8 @@ package com.softwaressilva.demospringbootmongodb.dto;
 import com.softwaressilva.demospringbootmongodb.domain.Post;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PostDTO implements Serializable {
@@ -12,7 +12,7 @@ public class PostDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String id;
-    private Instant date;
+    private Date date;
     private String title;
     private String body;
     private AuthorDTO author;
@@ -39,11 +39,11 @@ public class PostDTO implements Serializable {
         this.id = id;
     }
 
-    public Instant getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Instant date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

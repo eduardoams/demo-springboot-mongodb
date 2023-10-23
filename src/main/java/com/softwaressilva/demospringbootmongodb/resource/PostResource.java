@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,16 +35,31 @@ public class PostResource {
         return ResponseEntity.ok().body(new PostDTO(obj));
     }
 
-    @GetMapping(value = "/title-search")
+    @GetMapping(value = "/search-title")
     public ResponseEntity<List<PostDTO>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
         List<Post> list = postService.findByTitle(URL.decodeParam(text));
         List<PostDTO> listDto = list.stream().map(x -> new PostDTO(x)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
 
-    @GetMapping(value = "/body-search")
+    @GetMapping(value = "/search-body")
     public ResponseEntity<List<PostDTO>> bodySearch(@RequestParam(value = "text", defaultValue = "") String text) {
-        List<Post> list = postService.bodySearch(URL.decodeParam(text));
+        List<Post> list = postService.searchBody(URL.decodeParam(text));
+        List<PostDTO> listDto = list.stream().map(x -> new PostDTO(x)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
+    }
+
+    @GetMapping(value = "/search-all")
+    public ResponseEntity<List<PostDTO>> bodySearch(
+            @RequestParam(value = "text", defaultValue = "") String text,
+            @RequestParam(value = "minDate", defaultValue = "") String minDate,
+            @RequestParam(value = "maxDate", defaultValue = "") String maxDate) {
+
+        text = URL.decodeParam(text);
+        Date min = URL.convertDate(minDate, new Date(1L));
+        Date max = URL.convertDate(maxDate, new Date());
+
+        List<Post> list = postService.searchAll(text, min, max);
         List<PostDTO> listDto = list.stream().map(x -> new PostDTO(x)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }

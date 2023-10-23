@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.TimeZone;
 
 @Configuration
 public class TestConfig implements CommandLineRunner {
@@ -25,6 +28,9 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+
         userRepository.deleteAll();
         postRepository.deleteAll();
 
@@ -34,9 +40,9 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(u1, u2, u3));
 
-        Post p1 = new Post(null, Instant.now(), "Vai Corinthians!", "Eternamente dentro de nossos corações", new AuthorDTO(u1));
-        Post p2 = new Post(null, Instant.now(), "Bom dia", "Vamos com tudo, Fiel", new AuthorDTO(u2));
-        Post p3 = new Post(null, Instant.now(), "Neo Química Arena", "A Arena mais bonita do Brasil", new AuthorDTO(u1));
+        Post p1 = new Post(null, sdf.parse("2023-03-05"), "Vai Corinthians!", "Eternamente dentro de nossos corações", new AuthorDTO(u1));
+        Post p2 = new Post(null, sdf.parse("2023-06-12"), "Bom dia", "Vamos com tudo, Fiel", new AuthorDTO(u2));
+        Post p3 = new Post(null, sdf.parse("2023-09-07"), "Neo Química Arena", "A Arena mais bonita do Brasil", new AuthorDTO(u1));
 
         CommentDTO c1 = new CommentDTO("O melhor do Brasil!", Instant.now(), new AuthorDTO(u2));
         CommentDTO c2 = new CommentDTO("Concordo, mas existe outros estádios no Brasil que também são bonitos", Instant.now(), new AuthorDTO(u2));
